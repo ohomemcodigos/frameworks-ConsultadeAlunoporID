@@ -10,9 +10,11 @@ function errorHandler(err, req, res, next) {
 
   //requisito 8: trata a exceção de validação do Zod que retorna o 400
   if (err instanceof ZodError) {
-    return res.status(400).json({ message: 'ID deve ser numérico.' });
+    return res.status(400).json({ 
+      message: 'Erro de validação nos dados', 
+      detalhes: err.issues.map(issue => `${issue.path[0]}: ${issue.message}`)
+    });
   }
-
   console.error('Erro interno:', err);
   return res.status(500).json({ message: 'Erro interno do servidor.' });
 }
