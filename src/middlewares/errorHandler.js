@@ -3,7 +3,7 @@ const { ZodError } = require('zod');
 
 function errorHandler(err, req, res, next) {
   
-  //eequisitos 6 e 7: trata a exceção de aluno inexistente que dá no 404
+  //requisitos 6 e 7: trata a exceção de aluno inexistente que dá no 404
   if (err instanceof AlunoNaoEncontradoError) {
     return res.status(err.statusCode).json({ message: err.message });
   }
