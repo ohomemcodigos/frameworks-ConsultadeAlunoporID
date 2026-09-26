@@ -2,11 +2,35 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
+  output   = "./client"
 }
 
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+model Aluno {
+  id    Int    @id @default(autoincrement())
+
+  //dados pessoais
+  nome  String
+  cpf   String? @unique
+  idade Int?
+  //localização
+  estado    String?
+  pais      String   @default("Brasil")
+
+  //dados para contato
+  email String @unique
+  telefone       String?
+
+  //dados acadêmicos
+  matricula      String?  @unique
+  curso          String?
+  ativo          Boolean  @default(true)
+
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
 }
